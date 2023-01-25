@@ -1,82 +1,84 @@
 #!/usr/bin/python3
-"""module for a singly linked list"""
+"""Define a class Square."""
 
 
 class Node:
-    """"defines a node"""
+    """Node of a singly linked list.
+    Private instance attribute: data:
+        - property def data(self)
+        - property setter def data(self, value)
+    Private instance attribute: next_node:
+        - property def next_node(self)
+        - property setter def next_node(self, value)
+    Instantiation with data and next_node.
+    """
 
     def __init__(self, data, next_node=None):
-        """initializes the node with instance variables"""
-
+        """Initializes the data of the node."""
         self.data = data
         self.next_node = next_node
 
     @property
     def data(self):
-        """gets data attribute"""
-
-        return (self.__data)
+        """Retrieves the data from the node."""
+        return self.__data
 
     @data.setter
     def data(self, value):
-        """sets data attribute"""
-
+        """Sets the data into a node."""
         if not isinstance(value, int):
-            raise TypeError('data must be an integer')
+            raise TypeError("data must be an integer")
         self.__data = value
 
     @property
     def next_node(self):
-        """get next_node attribute
-        Returns: next node
-        """
-
-        return (self.__next_node)
+        """Retrieves the next_node."""
+        return self.__next_node
 
     @next_node.setter
     def next_node(self, value):
-        """set value of next node"""
-
-        if (value is not None and not isinstance(value, Node)):
-            raise TypeError('next_node must be a Node object')
-
+        """Sets the next_node."""
+        if not isinstance(value, Node) and value is not None:
+            raise TypeError("next_node must be a Node object")
         self.__next_node = value
 
 
 class SinglyLinkedList:
-    """defines a singly linked list"""
+    """ Singly linked list.
+    Private instance attribute: head.
+    Simple instantiation.
+    Public instance method: def sorted_insert(self, value).
+    """
 
     def __init__(self):
-        """Initializes the singly linked list"""
-
+        """Initializes the linked list."""
         self.head = None
 
     def __str__(self):
-        """make list printable"""
-
-        printsll = ""
-        location = self.head
-        while location:
-            printsll += str(location.data) + "\n"
-            location = location.next_node
-        return printsll[:-1]
+        """For the print statement in the main file."""
+        my_str = ""
+        node = self.head
+        while node:
+            my_str += str(node.data)
+            my_str += '\n'
+            node = node.next_node
+        return my_str[:-1]
 
     def sorted_insert(self, value):
-        """insert in a sorted fashion
-        Args:
-            value: what the value will be on the node
-        """
-        new = Node(value)
-        if not self.head:
-            self.head = new
+        """Inserts a node in a sorted linked list."""
+        new_node = Node(value)
+
+        if self.head is None:
+            self.head = new_node
             return
+
         if value < self.head.data:
-            new.next_node = self.head
-            self.head = new
+            new_node.next_node = self.head
+            self.head = new_node
             return
-        location = self.head
-        while location.next_node and location.next_node.data < value:
-            location = location.next_node
-        if location.next_node:
-            new.next_node = location.next_node
-        location.next_node = 
+
+        node = self.head
+        while node.next_node and node.next_node.data < value:
+            node = node.next_node
+        new_node.next_node = node.next_node
+        node.next_node = new_node
